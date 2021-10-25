@@ -1,0 +1,79 @@
+#include <iostream>
+
+using namespace std;
+
+class Job {
+private:
+    int jobId;
+    int deadline;
+public:
+    void setJobId(int i) {
+        jobId = i;
+    }
+    void setDeadline(int d) {
+        deadline = d;
+    }
+
+    int getJobId() {
+        return jobId;
+    }
+    int getDeadline() {
+        return deadline;
+    }
+};
+
+
+int main()
+{
+    Job job1, job2, job3;
+    job1.setJobId(1);
+    job1.setDeadline(5);
+    job2.setJobId(2);
+    job2.setDeadline(4);
+    job3.setJobId(3);
+    job3.setDeadline(7);
+
+    if ((job2.getDeadline() > job1.getDeadline()) && (job3.getDeadline() > job1.getDeadline()))
+    {
+        cout << "JOB " << job1.getJobId() << " has the earliest deadline job" << endl;
+
+        if (job2.getDeadline() < job3.getDeadline())
+        {
+            cout << "JOB " << job2.getJobId() << " has the second most earliest deadline job";
+        }
+        else
+        {
+            cout << "JOB " << job3.getJobId() << " has the second most earliest deadline job";
+        }
+    }
+    else if ((job1.getDeadline() > job2.getDeadline()) && (job3.getDeadline() > job2.getDeadline()))
+    {
+        cout << "JOB " << job2.getJobId() << " has the earliest deadline job" << endl;
+
+        if (job1.getDeadline() < job3.getDeadline())
+        {
+            cout << "JOB " << job1.getJobId() << " has the second most earliest deadline job";
+        }
+        else
+        {
+            cout << "JOB " << job3.getJobId() << " has the second most earliest deadline job";
+        }
+    } 
+    else
+    {
+        cout << "JOB " << job3.getJobId() << " has the earliest deadline job" << endl;
+
+        if (job2.getDeadline() < job1.getDeadline())
+        {
+            cout << "JOB " << job2.getJobId() << " has the second most earliest deadline job";
+        }
+        else
+        {
+            cout << "JOB " << job1.getJobId() << " has the second most earliest deadline job";
+        }
+    }
+
+
+    return 0;
+}
+

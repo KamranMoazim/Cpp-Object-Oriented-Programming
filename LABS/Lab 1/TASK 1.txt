@@ -1,0 +1,55 @@
+#include <iostream>
+
+using namespace std;
+
+
+class Team {
+private:
+    int score;
+    int wicket;
+public:
+    void setScore(int s){
+        score = s;
+    }
+    void setWicket(int w){
+        wicket = w;
+    }
+
+    int getScore() {
+        return score;
+    }
+    int getWicket() {
+        return wicket;
+    }
+};
+
+int main()
+{
+    Team team1, team2;
+
+    int score, wicket;
+
+    cout << "Enter Score for Team 1 : ";
+    cin >> score;
+    cout << "Enter Wicket for Team 1 : ";
+    cin >> wicket;
+    team1.setScore(score);
+    team1.setWicket(score);
+
+    cout << "Enter Score for Team 2 : ";
+    cin >> score;
+    cout << "Enter Wicket for Team 2 : ";
+    cin >> wicket;
+    team2.setScore(score);
+    team2.setWicket(score);
+
+    cout << "Team 1 has score : " << team1.getScore() << endl;
+    cout << "Team 1 has get wickets : " << team1.getWicket() << endl;
+
+    cout << "Team 2 has score : " << team2.getScore() << endl;
+    cout << "Team 2 has get wickets : " << team2.getWicket() << endl;
+
+
+    return 0;
+}
+

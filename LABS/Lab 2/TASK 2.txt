@@ -1,0 +1,89 @@
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Invoice {
+private:
+    string partNumber;
+    string partDescription;
+    int quantity;
+    int price;
+public:
+    Invoice(string pN = "", string d = "", int q = 0, int p = 0) {
+        setPartNumber(pN);
+        setPartDescription(d);
+        setQuantity(q);
+        setPrice(p);
+    }
+
+    void setPartNumber(string pN) {
+        partNumber = pN;
+    }
+    void setPartDescription(string d) {
+        partDescription = d;
+    }
+    void setQuantity(int q) {
+        if (q >= 0)
+        {
+            quantity = q;
+        }
+        else
+        {
+            quantity = 0;
+            cout << "Invalid Quantity Input" << endl;
+        }
+    }
+    void setPrice(int p) {
+        if (p >= 0)
+        {
+            price = p;
+        }
+        else
+        {
+            price = 0;
+            cout << "Invalid Price Input" << endl;
+        }
+    }
+    string getPartNumber() {
+        return partNumber;
+    }
+    string getPartDescription() {
+        return partDescription;
+    }
+    int getQuantity() {
+        return quantity;
+    }
+    int getPrice() {
+        return price;
+    }
+
+    int getInvoiceAmount() {
+        return price * quantity;
+    }
+};
+
+
+int main() {
+
+    //Invoice myInv1("12FSD");
+    //Invoice myInv2("12FSD", "This is new product");
+    //Invoice myInv3("12FSD", "This is new product", -9);
+    Invoice myInv4("12FSD", "This is new product", 9, 34);
+
+    //cout << myInv1.getPartNumber();
+
+    cout << "Product Number is : " << myInv4.getPartNumber() << endl;
+    cout << "Product Description is : " << myInv4.getPartDescription() << endl;
+    cout << "Price of each Product is : " << myInv4.getPrice() << endl;
+    cout << "Total Number of Product are : " << myInv4.getPartNumber() << endl;
+    cout << "Total Amount is : " << myInv4.getInvoiceAmount() << endl;
+
+    return 0;
+}
+
+
+

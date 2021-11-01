@@ -1,0 +1,103 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Account {
+private:
+    int balance;
+public:
+    Account(int inp){
+        if (inp > 0) {
+            balance = inp;
+        }
+        else {
+            cout << "Invalid Balance Input!" << endl;
+            balance = 0;
+        }
+    }
+    void addBalance(int b) {
+        if(b > 0){
+            balance += b;
+        }
+        else {
+            cout << "Invalid Add Balance Input!" << endl;
+        }
+    }
+    void withdrawBalance(int w) {
+        if (w > 0 && balance >= w) {
+            balance -= w;
+        }
+        else {
+            cout << "Debit amount exceeded account balance!" << endl;
+        }
+    }
+    int getBalance(){
+        return balance;
+    }
+};
+
+
+int main(){
+
+    char choice = 'y';
+    int input = 0;
+    Account myAccount(0);
+
+    //cout << "Your Current Balance is : " << myAccount.getBalance() << endl;
+
+    cout << "Please Select from Following" << endl;
+    cout << "a -> To Add Balance to your Account : " << endl;
+    cout << "w -> To Withdraw Balance from your Account : " << endl;
+    cout << "g -> To View your Current Balance : " << endl;
+    cout << "n -> To Exit Program : " << endl;
+    cin >> choice;
+
+    while (choice != 'n')
+    {
+        switch (choice)
+        {
+        case 'a':
+            cout << "Please Enter Amount to Add to Your Account : ";
+            cin >> input;
+            myAccount.addBalance(input);
+            break;
+        case 'w':
+            cout << "Please Enter Amount to Withdraw from Your Account : ";
+            cin >> input;
+            myAccount.withdrawBalance(input);
+            break;
+        case 'g':
+            cout << "Your Current Balance is : " << myAccount.getBalance() << endl;
+            break;
+        default:
+            break;
+        }
+
+        cout << "Please Select from Following" << endl;
+        cout << "a -> To Add Balance to your Account : " << endl;
+        cout << "w -> To Withdraw Balance from your Account : " << endl;
+        cout << "g -> To View your Current Balance : " << endl;
+        cout << "n -> To Exit Program : " << endl;
+        cin >> choice;
+    }
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

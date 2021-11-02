@@ -1,0 +1,78 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Car
+{
+private:
+	int yearModel;
+	string make;
+	int speed;
+public:
+	Car(int y, string m) {
+		setYearModel(y);
+		setMake(m);
+		speed = 0;
+	};
+	void setYearModel(int m){
+		if (m>0)
+		{
+			yearModel = m;
+		}
+		else
+		{
+			cout << "Invalid Year Model." << endl;
+		}
+	}
+	void setMake(string m) {
+		if (m != "")
+		{
+			make = m;
+		}
+		else
+		{
+			cout << "Invalid Make." << endl;
+		}
+	}
+	void accelerate() {
+		speed += 5;
+	}
+	void breakApply() {
+		if (speed > 0)
+		{
+			speed -= 5;
+		}
+		else
+		{
+			cout << "Car is stopped" << endl;
+		}
+	}
+	int getYearModel() {
+		return yearModel;
+	}
+	string getMake() {
+		return make;
+	}
+	int getSpeed() {
+		return speed;
+	}
+};
+
+
+int main() {
+
+	Car c1(2021, "Mercedes");
+	c1.accelerate();
+	c1.accelerate();
+	c1.accelerate();
+	c1.accelerate();
+	cout << c1.getSpeed() << endl;
+	c1.breakApply();
+	cout << c1.getSpeed() << endl;
+
+    return 0;
+}
+

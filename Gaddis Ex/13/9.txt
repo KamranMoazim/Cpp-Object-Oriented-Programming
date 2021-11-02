@@ -1,0 +1,64 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Population {
+private:
+    int population;
+    int numberOfBirths;
+    int numberOfDeaths;
+public:
+    void setPopulation(int p){
+        if (p >= 1)
+        {
+            population = p;
+        }
+        else
+        {
+            cout << "Invalid Population!" << endl;
+        }
+    }
+    void setNumberOfBirths(int b){
+        if (b >= 0)
+        {
+            numberOfBirths = b;
+        }
+        else
+        {
+            cout << "Invalid Number Of Births !" << endl;
+        }
+    }
+    void setNumberOfDeaths(int d){
+        if (d >= 0)
+        {
+            numberOfDeaths = d;
+        }
+        else
+        {
+            cout << "Invalid Number Of Deaths !" << endl;
+        }
+    }
+    double getBirthRate() {
+        return double(numberOfBirths) / population;
+    }
+    double getDeathRate() {
+        return double(numberOfDeaths) / population;
+    }
+};
+
+int main() {
+
+    Population p1;
+
+    p1.setPopulation(100000);
+    p1.setNumberOfBirths(8000);
+    p1.setNumberOfDeaths(6000);
+    cout << "Birth Rate is : " << p1.getBirthRate() << endl;
+    cout << "Death Rate is : " << p1.getDeathRate() << endl;
+    
+    return 0;
+}
+

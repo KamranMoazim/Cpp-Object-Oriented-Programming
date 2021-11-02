@@ -1,0 +1,95 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Date {
+private:
+    int month;
+    int day;
+    int year;
+public:
+    void setMonth(int m){
+        if (m > 0 && m <= 12)
+        {
+            month = m;
+        } else {
+            cout << "Invalid Month!" << endl;
+        }
+    }
+    void setDay(int d){
+        if (d > 0 && d <= 31)
+        {
+            day = d;
+        }
+        else {
+            cout << "Invalid Day!" << endl;
+        }
+    }
+    void setYear(int y){
+        if (y > 0)
+        {
+            year = y;
+        }
+        else {
+            cout << "Invalid Year!" << endl;
+        }
+    }
+    string getMonth(int m) {
+        switch (m)
+        {
+        case 1:
+            return "January";
+        case 2:
+            return "February";
+        case 3:
+            return "March";
+        case 4:
+            return "April";
+        case 5:
+            return "May";
+        case 6:
+            return "June";
+        case 7:
+            return "July";
+        case 8:
+            return "August";
+        case 9:
+            return "September";
+        case 10:
+            return "October";
+        case 11:
+            return "November";
+        case 12:
+            return "December";
+        default:
+            break;
+        }
+    }
+    void display1() {
+        cout << month << "/" << day << "/" << year << endl;
+    }
+    void display2() {
+        cout << getMonth(month) << " " << day << ", " << year << endl;
+    }
+    void display3() {
+        cout << day << " " << getMonth(month) << " " << year << endl;
+    }
+};
+
+int main() {
+
+    Date d1;
+    d1.setDay(1);
+    d1.setMonth(5);
+    d1.setYear(2000);
+
+    d1.display1();
+    d1.display2();
+    d1.display3();
+
+    return 0;
+}
+

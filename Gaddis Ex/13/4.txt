@@ -1,0 +1,237 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Patient {
+private:
+	string firstName;
+	string middleName;
+	string lastName;
+	string address;
+	string city;
+	string state;
+	int zip;
+	string phoneNumber;
+	string emergencyPhoneNumber;
+	string emergencyName;
+public:
+	Patient(string f, string m, string l, string a, string c, string s, int z, string p, string ep, string en) {
+		setFirstName(f);
+		setMiddleName(m);
+		setLastName(l);
+		setAddress(a);
+		setCity(c);
+		setState(s);
+		setZip(z);
+		setPhoneNumber(p);
+		setEmergencyPhoneNumber(ep);
+		setEmergencyName(en);
+	}
+	void setFirstName(string f){
+		if (f != "")
+		{
+			firstName = f;
+		}
+		else
+		{
+			cout << "Invalid First Name" << endl;
+		}
+	}
+	void setMiddleName(string m){
+		if (m != "")
+		{
+			middleName = m;
+		}
+		else
+		{
+			cout << "Invalid Middle Name" << endl;
+		}
+	}
+	void setLastName(string l){
+		if (l != "")
+		{
+			lastName = l;
+		}
+		else
+		{
+			cout << "Invalid Last Name" << endl;
+		}
+	}
+	void setAddress(string a){
+		if (a != "")
+		{
+			address = a;
+		}
+		else
+		{
+			cout << "Invalid Address" << endl;
+		}
+	}
+	void setCity(string c){
+		if (c != "")
+		{
+			city = c;
+		}
+		else
+		{
+			cout << "Invalid City" << endl;
+		}
+	}
+	void setState(string s){
+		if (s != "")
+		{
+			state = s;
+		}
+		else
+		{
+			cout << "Invalid State" << endl;
+		}
+	}
+	void setZip(int z){
+		if (z)
+		{
+			zip = z;
+		}
+		else
+		{
+			cout << "Invalid Zip" << endl;
+		}
+	}
+	void setPhoneNumber(string p){
+		if (p != "")
+		{
+			phoneNumber = p;
+		}
+		else
+		{
+			cout << "Invalid Phone Number" << endl;
+		}
+	}
+	void setEmergencyPhoneNumber(string ep){
+		if (ep != "")
+		{
+			emergencyPhoneNumber = ep;
+		}
+		else
+		{
+			cout << "Invalid Emergency Phone Number" << endl;
+		}
+	}
+	void setEmergencyName(string en){
+		if (en != "")
+		{
+			emergencyName = en;
+		}
+		else
+		{
+			cout << "Invalid Emergency Name" << endl;
+		}
+	}
+	string getFirstName() {
+		return firstName;
+	}
+	string getMiddleName() {
+		return middleName;
+	}
+	string getLastName(string l) {
+		return lastName;
+	}
+	string getAddress() {
+		return address;
+	}
+	string getCity() {
+		return city;
+	}
+	string getState() {
+		return state;
+	}
+	int getZip() {
+		return zip;
+	}
+	string getPhoneNumber() {
+		return phoneNumber;
+	}
+	string getEmergencyPhoneNumber() {
+		return emergencyPhoneNumber
+	}
+	string getEmergencyName() {
+		return emergencyName;
+	}
+};
+
+class Procedure
+{
+private:
+	string nameOfProcedure;
+	string dateOfProcedure;
+	string nameOfPractitionar;
+	int chargesForProcedure;
+public:
+	Procedure(string np, string dp, string nP, int c) {
+		setNameOfProcedure(np);
+		setDateOfProcedure(dp);
+		setNameOfPractitionar(nP);
+		setChargesForProcedure(c);
+	}
+	void setNameOfProcedure(string n) {
+		if (n != "")
+		{
+			nameOfProcedure = n;
+		}
+		else
+		{
+			cout << "Invalid Name Of Procedure" << endl;
+		}
+	}
+	void setDateOfProcedure(string d) {
+		if (d != "")
+		{
+			dateOfProcedure = d;
+		}
+		else
+		{
+			cout << "Invalid Date Of Procedure" << endl;
+		}
+	}
+	void setNameOfPractitionar(string d) {
+		if (d != "")
+		{
+			nameOfPractitionar = d;
+		}
+		else
+		{
+			cout << "Invalid Name Of Practitionar" << endl;
+		}
+	}
+	void setChargesForProcedure(int c) {
+		if (c)
+		{
+			chargesForProcedure = c;
+		}
+		else
+		{
+			cout << "Invalid Charges For Procedure" << endl;
+		}
+	}
+	string getNameOfProcedure() {
+		return nameOfProcedure;
+	}
+	string getDateOfProcedure() {
+		return dateOfProcedure;
+	}
+	string getNameOfPractitionar() {
+		return nameOfPractitionar
+	}
+	int getChargesForProcedure() {
+		return chargesForProcedure;
+	}
+};
+
+int main() {
+
+    return 0;
+}
+

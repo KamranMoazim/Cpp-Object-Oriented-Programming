@@ -1,0 +1,87 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Employee {
+private:
+    string name;
+    int idNumber;
+    string department;
+    string position;
+public:
+    Employee(string n, int i, string d, string p){
+        setName(n);
+        setIdNumber(i);
+        setDepartment(d);
+        setPosition(p);
+    }
+    Employee(string n, int i){
+        setName(n);
+        setIdNumber(i);
+    }
+    Employee() {
+        name = "";
+        idNumber = 0;
+        department = "";
+        position = "";
+    }
+    void setName(string n){
+        if (n != "")
+        {
+            name = n;
+        }
+        else
+        {
+            cout << "Invalid Name." << endl;
+        }
+    }
+    void setIdNumber(int i) {
+        if (i > 0)
+        {
+            idNumber = i;
+        }
+        else
+        {
+            cout << "Invalid ID Number." << endl;
+        }
+    }
+    void setDepartment(string d) {
+        if (d != "")
+        {
+            department = d;
+        }
+        else
+        {
+            cout << "Invalid Department." << endl;
+        }
+    }
+    void setPosition(string p) {
+        if (p != "")
+        {
+            position = p;
+        }
+        else
+        {
+            cout << "Invalid Position." << endl;
+        }
+    }
+    void display() {
+        cout << name << "\t" << idNumber << "\t" << department << "\t" << position << endl;
+    }
+};
+
+
+int main() {
+
+    Employee emp1("Susan Meyers", 47889, "Accounting", "Vice President"), emp2("Mark Jones", 77789, "IT", "Programmer"), emp3("Joy Rogers", 12889, "Manufacturing", "Engineer");
+
+    emp1.display();
+    emp2.display();
+    emp3.display();
+
+    return 0;
+}
+

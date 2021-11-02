@@ -1,0 +1,54 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class PayRoll {
+private:
+    double payRate = 10.0;
+    double hoursWorked;
+    double totalPay;
+    void calculateTotalPay() {
+        totalPay = payRate * hoursWorked;
+    }
+public:
+    void setHoursWorked(double h){
+        if (h <= 60.0)
+        {
+            hoursWorked = h;
+            calculateTotalPay();
+        }
+        else
+        {
+            cout << "Invalid Hours Worked !" << endl;
+        }
+    }
+    double getTotalPay() {
+        return totalPay;
+    }
+};
+
+int main() {
+
+    PayRoll emp[7];
+    double hoursWorked = 0.0;
+
+
+    for (int i = 0; i < 7; i++)
+    {
+        cout << "Emplyee " << i + 1 << " Enter Number of Hours you have worked this week : ";
+        cin >> hoursWorked;
+        emp[i].setHoursWorked(hoursWorked);
+    }
+
+    for (int i = 0; i < 7; i++)
+    {
+        cout << "Emplyee " << i + 1 << " has earned total Gross Pay this week : " << emp[i].getTotalPay() << endl;
+    }
+
+    
+    return 0;
+}
+

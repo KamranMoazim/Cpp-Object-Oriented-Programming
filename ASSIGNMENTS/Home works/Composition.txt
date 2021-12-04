@@ -1,0 +1,194 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+class Date
+{
+private:
+	int day;
+	int month;
+	int year;
+public:
+	Date(int d = 0, int m = 0, int y = 0){
+
+		setDay(d);
+		setMonth(m);
+		setYear(y);
+	}
+	~Date(){
+
+		cout << "Date Destructor." << endl;
+	}
+	void setDay(int d = 0){
+
+		if (d >= 1 && d <= 31)
+		{
+			day = d;
+		}
+		else
+		{
+			day = 1;
+		}
+	}
+	void setMonth(int m = 0){
+
+		if (m >= 1 && m <= 12)
+		{
+			month = m;
+		}
+		else
+		{
+			month = 1;
+		}
+	}
+	void setYear(int y = 0){
+
+		if (y >= 1900 && y <= 2021)
+		{
+			year = y;
+		}
+		else
+		{
+			year = 2021;
+		}
+	}
+	int getDay() const{
+		return day;
+	}
+	int getMonth() const{
+		return month;
+	}
+	int getYear() const{
+		return year;
+	}
+	void setBirthDate(int d = 0, int m = 0, int y = 0){
+
+		setDay(d);
+		setMonth(m);
+		setYear(y);
+	}
+	void setBirthDateWithDateObj(const Date &dob) {
+		day = dob.day;
+		month = dob.month;
+		year = dob.year;
+	}
+};
+
+class Teacher
+{
+private:
+	char* name;
+	char* sex;
+	long long phone;
+	Date dob;
+public:
+	Teacher(Date d, const char* n = NULL, const char* s = NULL, long long p = 0) : dob(d) {
+		
+		if (n != NULL)
+		{
+			name = new char[strlen(n) + 1];
+			strcpy(name, n);
+		}
+		else
+		{
+			name = NULL;
+		}
+
+		if (s != NULL)
+		{
+			sex = new char[strlen(s) + 1];
+			strcpy(sex, s);
+		}
+		else
+		{
+			sex = NULL;
+		}
+		phone = p;
+		
+	}
+	~Teacher() {
+		if (name != NULL)
+		{
+			delete[] name;
+		}
+		if (sex != NULL)
+		{
+			delete[] sex;
+		}
+	}
+	void setTeacher(Date d, const char* n = NULL, const char* s = NULL, long long p = 0) {
+		setDOB(d);
+		setName(n);
+		setSex(s);
+		setPhone(p);
+	}
+	void setName(const char* n = NULL) {
+		if (name != NULL)
+		{
+			delete[] name;
+
+			if (n != NULL)
+			{
+				name = new char[strlen(n) + 1];
+				strcpy(name, n);
+			}
+			else
+			{
+				name = NULL;
+			}
+		}
+	}
+	void setSex(const char* s = NULL) {
+		if (sex != NULL)
+		{
+			delete[] sex;
+
+			if (s != NULL)
+			{
+				sex = new char[strlen(s) + 1];
+				strcpy(sex, s);
+			}
+			else
+			{
+				sex = NULL;
+			}
+		}
+	}
+	void setPhone(long long p) {
+		phone = p;
+	}
+	void setDOB(const Date& d) {
+		dob.setBirthDateWithDateObj(d);
+	}
+	const char* getName() const {
+		return name;
+	}
+	const char* getSex() const {
+		return sex;
+	}
+	Date getDOB() const {
+		return dob;
+	}
+	long long getPhone() const {
+		return phone;
+	}
+	void display() const {
+		cout << name << " " << sex << " " << phone << " " << dob.getDay() << "/" << dob.getMonth() << "/" << dob.getYear() << endl;
+	}
+};
+int main()
+{
+
+	long long phone = 1234567;
+	Date d;
+	Teacher prof(d, "Umer Farooq", "male", phone);
+	prof.display();
+
+	d.setBirthDate(24, 12, 1979);
+
+	prof.setTeacher(d, "Umer Farooq", "Male", phone);
+	prof.display();
+
+
+	return 0;
+}

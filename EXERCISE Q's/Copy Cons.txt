@@ -1,0 +1,132 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <cmath>
+
+using namespace std;
+
+class Student
+{
+private:
+	int rollNo;
+	char* name;
+	double cgpa;
+	char* address;
+public:
+	Student() {
+	}
+	//Student(const Student &std) {
+	//	cout << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" << endl;
+	//	rollNo = std.rollNo + 1;
+	//	cout << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" << endl;
+	//	name = new char[strlen(std.name) + 1];
+	//	strcpy(name, std.name);
+	//	cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" << endl;
+	//	cgpa = std.cgpa;
+	//	cout << "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG" << endl;
+	//	address = new char[strlen(std.address) + 1];
+	//	strcpy(address, std.address);
+	//}
+	Student(const int r, const char* n, const double c, const char* a){
+		setRollNo(r);
+		setName(n);
+		setCGPA(c);
+		setAddress(a);
+	}
+	void setRollNo(const int r){
+		if (r > 0)
+		{
+			rollNo = r;
+		}
+		else
+		{
+			cout<<"Invalid Roll Number." << endl;
+		}
+	}
+	void setName(const char *n){
+		if (strlen(n) > 0)
+		{
+			name = new char[strlen(n) + 1];
+			strcpy(name, n);
+		}
+		else
+		{
+			cout << "Invalid Name." << endl;
+		}
+	}
+	void setCGPA(const double c) {
+		if (c >= 0 && c <=4 )
+		{
+			cgpa = c;
+		}
+		else
+		{
+			cout << "Invalid CGPA." << endl;
+		}
+	}
+	void setAddress(const char* a) {
+		if (strlen(a) > 0)
+		{
+			address = new char[strlen(a) + 1];
+			strcpy(address, a);
+		}
+		else
+		{
+			cout << "Invalid Address." << endl;
+		}
+	}
+	int getRollNo() {
+		return rollNo;
+	}
+	char* getName() {
+		return name;
+	}
+	double getCPA() {
+		return cgpa;
+	}
+	char* getAddress() {
+		return address;
+	}
+};
+
+int main() {
+
+	Student std1, std2;
+	char name[40] = {};
+	char address[80] = {};
+	int roll = 0;
+	double cgpa = 0.0;
+
+	cout << "Enter Roll Number : ";
+	cin >> roll;
+	cin.ignore();
+	cout << "Enter Name : ";
+	cin.getline(name, 40);
+	//cin.ignore();
+	cout << "Enter CGPA : ";
+	cin >> cgpa;
+	cin.ignore();
+	cout << "Enter Address : ";
+	cin.getline(address, 80);
+
+	std1.setRollNo(roll);
+	std1.setName(name);
+	std1.setCGPA(cgpa);
+	std1.setAddress(address);
+
+	cout << "Roll No : " << std1.getRollNo() << endl;
+	cout << "Name : " << std1.getName() << endl;
+	cout << "CGPA : " << std1.getCPA() << endl;
+	cout << "Address : " << std1.getAddress() << endl;
+
+	std2 = std1;
+    
+	cout << "Roll No (Copy Constructor) : " << std2.getRollNo() << endl;
+	cout << "Name (Copy Constructor) : " << std2.getName() << endl;
+	cout << "CGPA (Copy Constructor) : " << std2.getCPA() << endl;
+	cout << "Address (Copy Constructor) : " << std2.getAddress() << endl;
+
+    return 0;
+}
+

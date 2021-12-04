@@ -1,0 +1,150 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+using namespace std;
+
+
+class String {
+private:
+	char* str;
+public:
+	String(const char* ptrStr = NULL) {
+		if (ptrStr != NULL)
+		{
+			str = new char[strlen(ptrStr) + 1];
+			strcpy(str, ptrStr);
+		}
+		else
+		{
+			str = NULL;
+		}
+		//cout << "String Constructor" << endl;
+	}
+	char* getString() const {
+		return str;
+	}
+	void setString(const char* ptrStr) {
+		if (str != NULL)
+		{
+			delete[] str;
+			str = NULL;
+		}
+		if (str == NULL && ptrStr != NULL)
+		{
+			str = new char[strlen(ptrStr) + 1];
+			strcpy(str, ptrStr);
+		}
+		else
+		{
+			str = NULL;
+		}
+	}
+	String getStringThis()const {
+		return *this;
+	}
+	~String() {
+		//cout << "String Destructor" << endl;
+		delete[] str;
+		str = NULL;
+	}
+	String(const String& obj) {
+		//cout << "String Copy Constructor" << endl;
+		if (obj.str != NULL)
+		{
+			str = new char[strlen(obj.str) + 1];
+			strcpy(str, obj.str);
+		}
+		else
+		{
+			str = NULL;
+		}
+	}
+};
+
+
+
+
+class Book {
+private:
+	String name;
+	String author;
+public:
+	Book(String n = NULL, String a = NULL) : name(n), author(n) {
+		cout << "Constructor" << endl;
+		//name = n;
+		//author = a;
+	}
+	Book(const Book& b) {
+		//name = b.name;
+		//author = b.author;
+		setBookInfo(b.name, b.author);
+	}
+	void setBookInfo(String n = NULL, String a = NULL) {
+		//name = n;
+		//author = a;
+		name.setString(n.getString());
+		author.setString(a.getString());
+	}
+	void displayBook(){
+		cout << "Book : " << name.getString() << " is by author " << author.getString() << endl;
+	}
+};
+
+class Library {
+private:
+	Book* books;
+	int numberOfBooks;
+public:
+	Library(Book* b = NULL, int tB = 0) {
+		books = b;
+		numberOfBooks = tB;
+	}
+	int getNumberOfBooks() {
+		return numberOfBooks;
+	}
+	void displayBooks() {
+		for (int i = 0; i < numberOfBooks; i++)
+		{
+			(books + i)->displayBook();
+		}
+	}
+};
+
+
+int main()
+{
+	int numBooks = 2;
+	//cout << "Enter Numer of Books : ";
+	//cin >> numBooks;
+
+	Book* books = new Book[numBooks];
+	char name[50], auth[50];
+	for (int i = 0; i < numBooks; i++)
+	{
+		cout << "Enter Name : ";
+		cin >> name;
+		cin.ignore();
+		cout << "Enter Author : ";
+		cin >> auth;
+		cin.ignore();
+		(books + i)->setBookInfo(name, auth);
+	}
+	//for (int i = 0; i < numBooks; i++)
+	//{
+	//	(books + i)->displayBook();
+	//}
+
+
+	//cout << "Enter Name : ";
+	//cin >> name;
+	//cin.ignore();
+	//cout << "Enter Author : ";
+	//cin >> auth;
+	//cin.ignore();
+	//cout << name << "" << auth << endl;
+
+
+	Library lib(books, numBooks);
+	lib.displayBooks();
+
+	return 0;
+}

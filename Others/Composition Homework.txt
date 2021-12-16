@@ -1,0 +1,217 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
+
+using namespace std;
+
+class String {
+private:
+	char* str;
+public:
+	String(const char* ptrStr = NULL) {
+		if (ptrStr != NULL)
+		{
+			str = new char[strlen(ptrStr) + 1];
+			strcpy(str, ptrStr);
+		}
+		else
+		{
+			str = NULL;
+		}
+		cout << "String Constructor" << endl;
+	}
+	char* getString() const {
+		return str;
+	}
+	void setString(const char* ptrStr) {
+		if (str != NULL)
+		{
+			delete[] str;
+			str = NULL;
+		}
+		if (str == NULL && ptrStr != NULL)
+		{
+			str = new char[strlen(ptrStr) + 1];
+			strcpy(str, ptrStr);
+		}
+	}
+	String getStringThis()const {
+		return *this;
+	}
+	~String() {
+		cout << "String Destructor" << endl;
+		delete[] str;
+		str = NULL;
+	}
+	String(const String& obj) {
+		cout << "String Copy Constructor" << endl;
+		if (obj.str != NULL)
+		{
+			str = new char[strlen(obj.str) + 1];
+			strcpy(str, obj.str);
+		}
+		else
+		{
+			str = NULL;
+		}
+	}
+};
+
+
+class Lab {
+private:
+	String labName;
+	int labCapacity;
+public:
+	Lab(const char* n=NULL, int cap=0) : labName(n) {
+		labCapacity = cap;
+	}
+	void setLabCap(int cap) {
+		labCapacity = cap;
+	}
+	void setLabName(const char* n = NULL) {
+		labName.setString(n);
+	}
+	int getLabCap() {
+		return labCapacity;
+	}
+	char* getLabName() {
+		return labName.getString();
+	}
+	~Lab() {
+		cout << "Lab Destructor" << endl;
+	}
+};
+
+
+class LectureRoom {
+private:
+	String roomName;
+	int roomCapacity;
+public:
+	LectureRoom(const char* n = NULL, int cap=0) : roomName(n) {
+		roomCapacity = cap;
+	}
+	void setRoomCap(int cap) {
+		roomCapacity = cap;
+	}
+	void setRoomName(const char* n = NULL) {
+		roomName.setString(n);
+	}
+	int getRoomCap() {
+		return roomCapacity;
+	}
+	char* getRoomName() {
+		return roomName.getString();
+	}
+	~LectureRoom() {
+		cout << "LectureRoom Destructor" << endl;
+	}
+};
+
+
+class Building {
+private:
+	Lab* allLabs;
+	int labSize;
+	LectureRoom* lecRoom;
+	int lectureRoomSize;
+public:
+	Building(Lab* l = NULL, int sL = 0, LectureRoom* lR = NULL, int sLR = 0) {
+
+		allLabs = new Lab[sL];
+		labSize = sL;
+		lecRoom = new LectureRoom[sLR];
+		lectureRoomSize = sLR;
+
+		if (l != NULL)
+		{
+			for (int i = 0; i < sL; i++)
+			{
+				allLabs[i].setLabName(l[i].getLabName());
+				allLabs[i].setLabCap(l[i].getLabCap());
+			}
+		}
+		if (lR != NULL)
+		{
+			for (int i = 0; i < sLR; i++)
+			{
+				lecRoom[i].setRoomName(lR[i].getRoomName());
+				lecRoom[i].setRoomCap(lR[i].getRoomCap());
+			}
+		}
+		
+	}
+	void showAllLabs() {
+		cout << "Show all Labs " << endl;
+		for (int i = 0; i < labSize; i++)
+		{
+			if (allLabs[i].getLabName() != NULL)
+			{
+				cout << "Lab " << allLabs[i].getLabName() << " " << allLabs[i].getLabCap() << " Capacity" << endl;
+			}
+		}
+	}
+	void showAllLectureRooms() {
+		cout << "Show all Lecture Rooms " << endl;
+		for (int i = 0; i < lectureRoomSize; i++)
+		{
+			if (lecRoom[i].getRoomName() != NULL)
+			{
+				cout << "Room " << lecRoom[i].getRoomName() << " " << lecRoom[i].getRoomCap() << " Capacity" << endl;
+			}
+		}
+	}
+	void insertLab(int loc, char* n, int cap) {
+		allLabs[loc].setLabName(n);
+		allLabs[loc].setLabCap(cap);
+	}
+	void deleteLab(int loc) {
+		allLabs[loc].setLabName(NULL);
+		allLabs[loc].setLabCap(0);
+	}
+	void insertLectureRoom(int loc, char* n, int cap) {
+		lecRoom[loc].setRoomName(n);
+		lecRoom[loc].setRoomCap(cap);
+	}
+	void deleteLectureRoom(int loc) {
+		allLabs[loc].setLabName(NULL);
+		allLabs[loc].setLabCap(0);
+	}
+	~Building() {
+		if (allLabs != NULL)
+		{
+			delete[] allLabs;
+			allLabs = NULL;
+		}
+		if (lecRoom != NULL)
+		{
+			delete[] lecRoom;
+			lecRoom = NULL;
+		}
+	}
+};
+
+int main()
+{
+	Lab *labs = new Lab[4];
+	LectureRoom *rooms = new LectureRoom[4];
+
+	labs[0].setLabName("MKPK1");
+	labs[0].setLabCap(60);
+
+	labs[1].setLabName("MKPK2");
+	labs[1].setLabCap(60);
+
+	rooms[0].setRoomName("Hafiz 102");
+	rooms[0].setRoomCap(3);
+
+	rooms[1].setRoomName("Safie 108");
+	rooms[1].setRoomCap(3);
+
+	Building b(labs, 4, rooms, 4);
+
+	b.showAllLabs();
+	b.showAllLectureRooms();
+
+	return 0;
+}

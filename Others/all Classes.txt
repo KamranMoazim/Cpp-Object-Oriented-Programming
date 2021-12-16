@@ -1,0 +1,964 @@
+
+class String {
+private:
+	int strSize;
+	char* str;
+public:
+	String(const char* ptrStr = NULL) {
+		if (ptrStr != NULL)
+		{
+			strSize = strlen(ptrStr);
+			str = new char[strlen(ptrStr) + 1];
+			strcpy(str, ptrStr);
+		}
+		else
+		{
+			str = NULL;
+			strSize = 0;
+		}
+		cout << "String Constructor" << endl;
+	}
+	char* getString() const {
+		return str;
+	}
+	void setString(const char* ptrStr) {
+		if (str != NULL)
+		{
+			delete[] str;
+			str = NULL;
+			strSize = 0;
+		}
+		if (str == NULL && ptrStr != NULL)
+		{
+			strSize = strlen(ptrStr);
+			str = new char[strlen(ptrStr) + 1];
+			strcpy(str, ptrStr);
+		}
+	}
+	String getStringThis()const {
+		return *this;
+	}
+	~String() {
+		cout << "String Destructor" << endl;
+		delete[] str;
+		str = NULL;
+	}
+	String(const String& obj) {
+		cout << "String Copy Constructor" << endl;
+		if (obj.str != NULL)
+		{
+			strSize = strlen(obj.str);
+			str = new char[strlen(obj.str) + 1];
+			strcpy(str, obj.str);
+		}
+		else
+		{
+			strSize = 0;
+			str = NULL;
+		}
+	}
+	void operator = (const String& s) {
+		if (str != NULL)
+		{
+			delete[] str;
+			str = NULL;
+			strSize = 0;
+		}
+		if (str == NULL && s.str != NULL)
+		{
+			strSize = strlen(s.str);
+			str = new char[strlen(s.str) + 1];
+			strcpy(str, s.str);
+		}
+	}
+};
+
+class Lab {
+private:
+	String labName;
+	int labCapacity;
+public:
+	Lab(const char* n=NULL, int cap=0) : labName(n) {
+		labCapacity = cap;
+	}
+	void setLabCap(int cap) {
+		labCapacity = cap;
+	}
+	void setLabName(const char* n = NULL) {
+		labName.setString(n);
+	}
+	int getLabCap() {
+		return labCapacity;
+	}
+	char* getLabName() {
+		return labName.getString();
+	}
+	~Lab() {
+		cout << "Lab Destructor" << endl;
+	}
+};
+class LectureRoom {
+private:
+	String roomName;
+	int roomCapacity;
+public:
+	LectureRoom(const char* n = NULL, int cap=0) : roomName(n) {
+		roomCapacity = cap;
+	}
+	void setRoomCap(int cap) {
+		roomCapacity = cap;
+	}
+	void setRoomName(const char* n = NULL) {
+		roomName.setString(n);
+	}
+	int getRoomCap() {
+		return roomCapacity;
+	}
+	char* getRoomName() {
+		return roomName.getString();
+	}
+	~LectureRoom() {
+		cout << "LectureRoom Destructor" << endl;
+	}
+};
+class Building {
+private:
+	Lab* allLabs;
+	int labSize;
+	LectureRoom* lecRoom;
+	int lectureRoomSize;
+public:
+	Building(Lab* l = NULL, int sL = 0, LectureRoom* lR = NULL, int sLR = 0) {
+
+		allLabs = new Lab[sL];
+		labSize = sL;
+		lecRoom = new LectureRoom[sLR];
+		lectureRoomSize = sLR;
+
+		if (l != NULL)
+		{
+			for (int i = 0; i < sL; i++)
+			{
+				allLabs[i].setLabName(l[i].getLabName());
+				allLabs[i].setLabCap(l[i].getLabCap());
+			}
+		}
+		if (lR != NULL)
+		{
+			for (int i = 0; i < sLR; i++)
+			{
+				lecRoom[i].setRoomName(lR[i].getRoomName());
+				lecRoom[i].setRoomCap(lR[i].getRoomCap());
+			}
+		}
+		
+	}
+	void showAllLabs() {
+		cout << "Show all Labs " << endl;
+		for (int i = 0; i < labSize; i++)
+		{
+			if (allLabs[i].getLabName() != NULL)
+			{
+				cout << "Lab " << allLabs[i].getLabName() << " " << allLabs[i].getLabCap() << " Capacity" << endl;
+			}
+		}
+	}
+	void showAllLectureRooms() {
+		cout << "Show all Lecture Rooms " << endl;
+		for (int i = 0; i < lectureRoomSize; i++)
+		{
+			if (lecRoom[i].getRoomName() != NULL)
+			{
+				cout << "Room " << lecRoom[i].getRoomName() << " " << lecRoom[i].getRoomCap() << " Capacity" << endl;
+			}
+		}
+	}
+	void insertLab(int loc, char* n, int cap) {
+		allLabs[loc].setLabName(n);
+		allLabs[loc].setLabCap(cap);
+	}
+	void deleteLab(int loc) {
+		allLabs[loc].setLabName(NULL);
+		allLabs[loc].setLabCap(0);
+	}
+	void insertLectureRoom(int loc, char* n, int cap) {
+		lecRoom[loc].setRoomName(n);
+		lecRoom[loc].setRoomCap(cap);
+	}
+	void deleteLectureRoom(int loc) {
+		allLabs[loc].setLabName(NULL);
+		allLabs[loc].setLabCap(0);
+	}
+	~Building() {
+		if (allLabs != NULL)
+		{
+			delete[] allLabs;
+			allLabs = NULL;
+		}
+		if (lecRoom != NULL)
+		{
+			delete[] lecRoom;
+			lecRoom = NULL;
+		}
+	}
+};
+
+class Address {
+private:
+	string city;
+	string state;
+	string country;
+	string zipCode;
+public:
+	Address(string c = "", string s = "", string cn = "", string z = "") {
+		city = c;
+		state = s;
+		country = cn;
+		zipCode = z;
+	}
+	void setCity(string s){
+		city = s;
+	}
+	void setState(string s) {
+		state = s;
+	}
+	void setCountry(string s) {
+		country = s;
+	}
+	void setZipCode(string s) {
+		zipCode = s;
+	}
+	string getCity(string s) {
+		return city;
+	}
+	string getState(string s) {
+		return state;
+	}
+	string getCountry(string s) {
+		return country;
+	}
+	string getZipCode(string s) {
+		return zipCode;
+	}
+	string getAddress() {
+		return city + ", " + state + ", " + country + " (" + zipCode + ")";
+	}
+};
+class Student {
+private:
+	string name;
+	int rollNo;
+	string emailID;
+	Address* address;
+public:
+	Student(string s = "", int r = 0, string e = "", Address* ad = NULL) {
+		name = s;
+		rollNo = r;
+		emailID = e;
+		address = ad;
+	}
+	void setName(string s) {
+		name = s;
+	}
+	void setRollNo(int r) {
+		rollNo = r;
+	}
+	void setEmailID(string e) {
+		emailID = e;
+	}
+	void setAddress(Address* ad) {
+		address = ad;
+	}
+	string getName() {
+		return name;
+	}
+	int getRollNo() {
+		return rollNo;
+	}
+	string getEmailID() {
+		return emailID;
+	}
+	Address* getAddress() {
+		return address;
+	}
+	void showDetail() {
+		cout << name << "\t" << rollNo << "\t" << emailID << "\t" << address->getAddress();
+	}
+};
+
+class Collection {
+private:
+	int* data;
+	int sizeCol;
+public:
+	Collection(int s) {
+		sizeCol = s;
+		data = new int[s];
+		for (int i = 0; i < s; i++)
+		{
+			data[i] = 0;
+		}
+	}
+	Collection(int* d, int s) {
+		sizeCol = s;
+		data = new int[s];
+		for (int i = 0; i < s; i++)
+		{
+			data[i] = d[i];
+		}
+	}
+	Collection(const Collection &c) {
+		sizeCol = c.sizeCol;
+		data = new int[c.sizeCol];
+		for (int i = 0; i < c.sizeCol; i++)
+		{
+			data[i] = c.data[i];
+		}
+	}
+	~Collection() {
+		delete[] data;
+	}
+	int getSize() {
+		return sizeCol;
+	}
+	void setElement(int k, int i){
+		if (i < sizeCol)
+		{
+			data[i] = k;
+		}
+		else
+		{
+			cout << "Invalid index given!" << endl;
+		}
+	}
+	int countElement(int key) {
+		int count = 0;
+		for (int i = 0; i < sizeCol; i++)
+		{
+			if (key == data[i]) {
+				count++;
+			}
+		}
+		if (count == 0)
+		{
+			return -1;
+		}
+		return count;
+	}
+	Collection getSubCollection(int start, int end) {
+		if (start < sizeCol && end <= sizeCol)
+		{
+			Collection tempCollection(end - start);
+
+			for (int i = start, j = 0; i <= end; i++, j++)
+			{
+				tempCollection.data[j] = data[i];
+			}
+			return tempCollection;
+		}
+	}
+};
+
+class Complex {
+private:
+	double real;
+	double imaginary;
+public:
+	Complex(double r = 0.0, double i = 0.0) {
+		this->real = r;
+		(*this).imaginary = i;
+	}
+	void setReal(double r) {
+		this->real = r;
+	}
+	void setImaginary(double i) {
+		(*this).imaginary = i;
+	}
+	double getReal() {
+		return this->real;
+	}
+	double getImaginary() {
+		return (*this).imaginary;
+	}
+	void display() {
+		cout << "Real Part : " << real << " Imaginary Part : " << imaginary << endl;
+	}
+
+	Complex operator + (const Complex& c) {
+		Complex temp;
+		temp.real = real + c.real;
+		temp.imaginary = imaginary + c.imaginary;
+		return temp;
+	}
+	Complex operator - (const Complex& c) {
+		Complex temp;
+		temp.real = real - c.real;
+		temp.imaginary = imaginary - c.imaginary;
+		return temp;
+	}
+	Complex operator * (const Complex& c) {
+		Complex temp;
+		temp.real = real * c.real;
+		temp.imaginary = imaginary * c.imaginary;
+		return temp;
+	}
+	Complex operator / (const Complex& c) {
+		Complex temp;
+		temp.real = real / c.real;
+		temp.imaginary = imaginary / c.imaginary;
+		return temp;
+	}
+
+	void operator += (const Complex& c) {
+		real += c.real;
+		imaginary += c.imaginary;
+	}
+	void operator -= (const Complex& c) {
+		real -= c.real;
+		imaginary -= c.imaginary;
+	}
+	void operator *= (const Complex& c) {
+		real *= c.real;
+		imaginary *= c.imaginary;
+	}
+	void operator /= (const Complex& c) {
+		real /= c.real;
+		imaginary /= c.imaginary;
+	}
+
+	Complex& operator ++ () {
+		++real;
+		++imaginary;
+		return *this;
+	}
+	Complex& operator -- () {
+		--real;
+		--imaginary;
+		return *this;
+	}
+	// above two are pre-fix and following two are post-fix
+	Complex& operator ++ (int) {
+		real++;
+		imaginary++;
+		return *this;
+	}
+	Complex& operator -- (int) {
+		real--;
+		imaginary--;
+		return *this;
+	}
+
+	bool operator > (const Complex& c) {
+		if (real > c.real && imaginary > c.imaginary)
+		{
+			return true;
+		}
+		return false;
+	}
+	bool operator < (const Complex& c) {
+		if (real < c.real && imaginary < c.imaginary)
+		{
+			return true;
+		}
+		return false;
+	}
+	bool operator == (const Complex& c) {
+		if (real == c.real && imaginary == c.imaginary)
+		{
+			return true;
+		}
+		return false;
+	}
+	bool operator != (const Complex& c) {
+		if (real != c.real || imaginary != c.imaginary)
+		{
+			return true;
+		}
+		return false;
+	}
+	bool operator >= (const Complex& c) {
+		if (real >= c.real && imaginary >= c.imaginary)
+		{
+			return true;
+		}
+		return false;
+	}
+	bool operator <= (const Complex& c) {
+		if (real <= c.real && imaginary <= c.imaginary)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	friend Complex operator + (double d, const Complex& c);
+	Complex operator + (double d) {
+		Complex tempC;
+		tempC.real = real + d;
+		tempC.imaginary = imaginary;
+		return tempC;
+	}
+
+	friend ostream& operator << (ostream& out, const Complex& c) {
+		out << "Real Part : " << c.real << " Imaginary Part : " << c.imaginary << endl;
+		return out;
+	}
+	friend istream& operator >> (istream& in, Complex& c) {
+		cout << "Enter Real Part ";
+		in >> c.real;
+		cout << "Enter Imaginary Part ";
+		in >> c.imaginary;
+		return in;
+	}
+};
+Complex operator + (double d, const Complex& c) {
+	Complex tempC;
+	tempC.real = c.real + d;
+	tempC.imaginary = c.imaginary;
+	return tempC;
+}
+
+class Matrix;
+void MatrixMultiplication(Matrix, int **, int , int );
+void MatrixTranpose(Matrix&);
+class Matrix {
+private:
+	int** mat;
+	int rows;
+	int colums;
+public:
+	friend void MatrixMultiplication(Matrix, int**, int, int);
+	friend void MatrixTranpose(Matrix&);
+	Matrix(int r = 0, int c = 0) {
+		if (r > 0 && c > 0)
+		{
+			rows = r;
+			colums = c;
+
+			mat = new int* [rows];
+
+			for (int i = 0; i < r; i++) {
+				*(mat + i) = new int[c];
+			}
+
+			for (int i = 0; i < rows; i++)
+				for (int j = 0; j < colums; j++)
+					*(*(mat + i) + j) = 0;
+		}
+		else
+		{
+			mat = NULL;
+			rows = 0;
+			colums = 0;
+		}
+	}
+	void setValue(int r, int c, int val) {
+		*(*(mat + r) + c) = val;
+	}
+	int getValue(int r, int c, int val) {
+		return *(*(mat + r) + c);
+	}
+	int** getMatrix() {
+		return mat;
+	}
+	int* getRowAdd(int r) {
+		if (r < rows)
+		{
+			return *(mat + r);
+		}
+		return NULL;
+	}
+	int getRows() {
+		return rows;
+	}
+	int getColums() {
+		return colums;
+	}
+	Matrix* getThis() {
+		return this;
+	}
+	void display() {
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < colums; j++)
+			{
+				cout << *(*(mat + i) + j) << "\t";
+			}
+			cout << endl;
+		}
+	}
+	~Matrix() {
+		for (int i = 0; i < rows; i++)
+		{
+			delete[] *(mat + i);
+		}
+		delete[] mat;
+	}
+};
+void MatrixMultiplication(Matrix firstM, int** otherM, int r, int c) {
+
+	Matrix tempM(firstM.rows, c);
+	int sum = 0;
+
+	for (int i = 0; i < firstM.rows; i++)
+	{
+		for (int j = 0; j < c; j++)
+		{
+			for (int k = 0; k < firstM.colums; k++)
+			{
+				sum += *(*(firstM.mat + i) + k) * (*(*(otherM + k) + j));
+			}
+			*(*(tempM.mat + i) + j) = sum;
+			sum = 0;
+		}
+	}
+
+	cout << "MULTIPLICATION ================================" << endl;
+	tempM.display();
+}
+void MatrixTranpose(Matrix &m) {
+	Matrix newM(m.rows, m.colums);
+	for (int i = 0; i < m.rows; i++)
+	{
+		for (int j = 0; j < m.colums; j++)
+		{
+			*(*(newM.mat + j) + i) = *(*(m.mat + i) + j);
+		}
+	}
+	cout << "TRANSPOSE ================================" << endl;
+	newM.display();
+}
+
+class IntegerSet {
+private:
+	int* arr;
+	int maxSize;
+public:
+	IntegerSet(int s = 0) : maxSize(s) {
+		arr = new int[s];
+		for (int i = 0; i < maxSize; i++) {
+			arr[i] = 0;
+		}
+	}
+	IntegerSet(const IntegerSet& obj){
+		maxSize = obj.maxSize;
+		arr = new int[maxSize];
+		for (int i = 0; i < maxSize; i++) {
+			arr[i] = obj.arr[i];
+		}
+	}
+	~IntegerSet() {
+		delete[] arr;
+		arr = NULL;
+	}
+	IntegerSet operator = (const IntegerSet& obj) {
+		IntegerSet tempI;
+		tempI.maxSize = obj.maxSize;
+		tempI.arr = new int[maxSize];
+		for (int i = 0; i < maxSize; i++) {
+			tempI.arr[i] = obj.arr[i];
+		}
+		return tempI;
+	}
+	bool operator == (const IntegerSet& obj) {
+		bool condition = false;
+		if (maxSize == obj.maxSize)
+		{
+			for (int i = 0; i < maxSize; i++) {
+				if (arr[i] == obj.arr[i])
+				{
+					condition = true;
+				}
+				else
+				{
+					condition = false;
+					break;
+				}
+			}
+		}		
+		return condition;
+	}
+	IntegerSet operator ! () {
+		IntegerSet tempI;
+		tempI.maxSize = maxSize;
+		tempI.arr = new int[maxSize];
+		for (int i = 0; i < maxSize; i++) {
+			if (arr[i]==1)
+			{
+				tempI.arr[i] = 0;
+			}
+			else 
+			{
+				tempI.arr[i] = 1;
+			}
+		}
+		return tempI;
+	}
+	void insertElement(int k){
+		arr[k] = 1;
+	}
+	void deleteElement(int k) {
+		arr[k] = 0;
+	}
+	IntegerSet unionOfSet(const IntegerSet& obj) {
+		IntegerSet tempI;
+		if (maxSize == obj.maxSize) {
+			tempI.maxSize = obj.maxSize;
+			tempI.arr = new int[obj.maxSize];
+			for (int i = 0; i < obj.maxSize; i++)
+			{
+				if (arr[i] == 1 || obj.arr[i] == 1)
+				{
+					tempI.arr[i] = 1;
+				}
+				else
+				{
+					tempI.arr[i] = 0;
+				}
+			}
+		}
+		else
+		{
+			cout << "Size DO NOT match" << endl;
+		}
+		return tempI;
+	}
+	IntegerSet intersectionOfSet(const IntegerSet& obj) {
+		IntegerSet tempI;
+		if (maxSize == obj.maxSize) {
+			tempI.maxSize = obj.maxSize;
+			tempI.arr = new int[obj.maxSize];
+			for (int i = 0; i < obj.maxSize; i++)
+			{
+				if (arr[i] == 0 || obj.arr[i] == 0)
+				{
+					tempI.arr[i] = 0;
+				}
+				else
+				{
+					tempI.arr[i] = 1;
+				}
+			}
+		}
+		else
+		{
+			cout << "Size DO NOT match" << endl;
+		}
+		return tempI;
+	}
+	bool isNullSet() {
+		bool condition = true;
+		for (int i = 0; i < maxSize; i++) {
+			if (arr[i] == 0)
+			{
+				condition = true;
+			}
+			else
+			{
+				condition = false;
+				break;
+			}
+		}
+		return condition;
+	}
+};
+
+class Simple {
+private:
+	int one;
+	static int two;
+public:
+	Simple(int o = 0) {
+		one = o;
+		two++;
+	}
+	void setOne(int o) {
+		one = o;
+	}
+	int getOne() {
+		return one;
+	}
+	const int& leftConstant() {
+		int val = one + one;
+		return val;
+	}
+	int conterConstant(const Simple & s) {
+		//s.one += 1;    // this will give error if you modify coming obj
+		int val = one + s.one;
+		return val;
+	}
+	int rightConstant() const {
+		//one += 1;      // this will give error if you modify member vars
+		int val = one + one;
+		return val;
+	}
+};
+int Simple::two = 0;
+
+class Distance
+{
+private:
+	int feet;
+	double inches;
+public:
+	Distance()
+	{
+		feet = 0; 
+		inches = 0.0;
+	}
+	Distance(int ft, double in)
+	{
+		feet = ft; 
+		inches = in;
+	}
+	void show()
+	{
+		cout << "Feet " << feet << endl;
+		cout << "Inches " << inches << endl;
+	}
+	Distance add_dist_object(Distance d2)
+	{
+		inches = inches + d2.inches;
+		feet = feet + d2.feet;
+		return *this;
+	}
+	Distance* add_dist_pointer(Distance d2)
+	{
+		inches = inches + d2.inches;
+		feet = feet + d2.feet;
+		return this;
+	}
+};
+
+class Numbers
+{
+private:
+	int* arr;
+	int arrSize;
+public:
+	Numbers(int s = 0)
+	{
+		arrSize = s;
+		cout << "Numbers(int size = 0) " << endl;
+		if (arrSize > 0)
+		{
+			arr = new int[arrSize];
+			for (int i = 0; i < arrSize; i++)
+			{
+				arr[i] = i;
+			}
+
+		}
+		else
+		{
+			arr = NULL;
+		}
+
+	}
+	Numbers(const Numbers& obj)
+	{
+		cout << "Numbers(const Numbers& obj) " << endl;
+
+		if (obj.arrSize > 0)
+		{
+			arr = new int[obj.arrSize];
+			for (int i = 0; i < obj.arrSize; i++)
+			{
+				arr[i] = obj.arr[i];
+			}
+
+		}
+		else
+		{
+			arr = NULL;
+		}
+		arrSize = obj.arrSize;
+	}
+	~Numbers()
+	{
+		cout << "~Number()" << endl;
+		if (arr != NULL)
+		{
+			delete[] arr;
+			arr = NULL;
+		}
+	}
+	void setVal(int i, int v) {
+		arr[i] = v;
+	}
+	int getVal(int i) {
+		return arr[i];
+	}
+	void display()const
+	{
+		cout << "void display()const " << endl;
+		for (int i = 0; i < arrSize; i++)
+		{
+			cout << arr[i] << " ";
+		}
+		cout << endl;
+	}
+	const int* getPtr() const
+	{
+		cout << "const int* getPtr() const" << endl;
+		return arr;
+	}
+	void setArriXi(int s)
+	{
+		cout << "void setPtr( int s)" << endl;
+		if (arr != NULL) // destruction
+		{
+			delete[] arr;
+			arr = NULL;
+		}
+		if (s > 0) // construction.....
+		{
+			arr = new int[s];
+			for (int i = 0; i < s; i++)
+			{
+				arr[i] = i * i;
+			}
+		}
+		arrSize = s;
+	}
+	Numbers func(Numbers n)
+	{
+		cout << "void fun(Numbers n)" << endl;
+		return *this;
+	}
+	void operator = (const Numbers& n) {
+		arrSize = n.arrSize;
+		if (arr != NULL)
+		{
+			delete[] arr;
+			arr = NULL;
+		}
+		if (arr == NULL)
+		{
+			arr = new int[arrSize];
+			for (int i = 0; i < arrSize; i++)
+			{
+				arr[i] = n.arr[i];
+			}
+		}
+	}
+	friend ostream& operator << (ostream& out, const Numbers& n) {
+		cout << "Contents of array are : ";
+		for (int i = 0; i < n.arrSize; i++)
+		{
+			out << n.arr[i] << "\t";
+		}
+		out << endl;
+		return out;
+	}
+	friend istream& operator >> (istream& in, Numbers& n) {
+		for (int i = 0; i < n.arrSize; i++)
+		{
+			cout << "Enter Value for location " << i + 1 << " : ";
+			in >> n.arr[i];
+		}
+		return in;
+	}
+};
+
+
